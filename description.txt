@@ -1,0 +1,14 @@
+
+The database language SQL (Structured Query Language) is the standard for relational databases and is supported by most database systems. SQL provides a series of commands and functions for defining data structures, data manipulation (inserting, editing, deleting), and data queries. In this three-day boot camp, we will teach you the fundamentals of relational databases and database design. In addition to the different data processing options, we will show you the necessary steps for user and rights management and database access protection. 
+
+Course content: 
+Introduction to relational databases 
+Introduction to SQL 
+Database design/column data types (numeric, text, blob) 
+Installing a local MySQL server 
+MySQL Workbench 
+SQL query 
+Querying multiple linked tables 
+Embedded queries 
+Mini REST Server with database connection 
+
