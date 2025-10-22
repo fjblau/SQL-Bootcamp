@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://localhost:53832/d38291a7-a290-47df-8be6-a7417288e4f8/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--<base href="http://localhost:53832/d38291a7-a290-47df-8be6-a7417288e4f8/">--><base href=".">
+  <title>marketing_document.md</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link href="./marketing_document.md_files/default-markdown.css" rel="stylesheet">
+	<link href="./marketing_document.md_files/katex.css" rel="stylesheet">
+	<link href="./marketing_document.md_files/colour-scheme.css" rel="stylesheet">
+	<link href="./marketing_document.md_files/settings.css" rel="stylesheet">
+  	<script src="./marketing_document.md_files/smiles-drawer.min.js" type="application/javascript"></script>
+
+  <script type="application/javascript">
+    function printAndClose(enabled) {
+      if (typeof SmiDrawer === "function") {
+        const svgs = document.querySelectorAll('svg[data-smiles]');
+        svgs.forEach(function(svg) {
+          var smiles = svg.getAttribute('data-smiles');
+          const configJson = svg.getAttribute('data-smiles-config');
+          let moleculeOptions;
+          let reactionOptions;
+          if (configJson) {
+            try {
+              // decodeURIComponent to match encodeURIComponent in processMarkdown.ts
+              var parsedConfig = JSON.parse(decodeURIComponent(configJson));
+              moleculeOptions = parsedConfig.moleculeOptions ?? {};
+              reactionOptions = parsedConfig.reactionOptions ?? {};
+            } catch (e) {
+              // ignore, fallback to empty options
+            }
+          }
+          var parent = svg.parentNode;
+          var errorDiv = document.createElement('div');
+          errorDiv.style.color = 'red';
+          errorDiv.style.fontFamily = 'monospace';
+          errorDiv.style.background = '#fff0f0';
+          errorDiv.style.border = '1px solid #f88';
+          errorDiv.style.padding = '0.5em 1em';
+          errorDiv.style.margin = '0.5em 0';
+          function showError(msg) {
+            if (parent) {
+              var pre = document.createElement('pre');
+              pre.textContent = msg;
+              errorDiv.appendChild(pre);
+              parent.replaceChild(errorDiv, svg);
+            }
+          }
+          try {
+            var drawer = new SmiDrawer(moleculeOptions, reactionOptions);
+            SmilesDrawer.parse(smiles, function(tree) {
+              drawer.draw(smiles, svg);
+            }, function(err) {
+              showError('Invalid SMILES: ' + smiles + (err ? '\n' + err : ''));
+            });
+          } catch (err) {
+            showError('Invalid SMILES: ' + smiles + (err ? '\n' + err : ''));
+          }
+        });
+      }
+      if (enabled) {
+        window.addEventListener("afterprint", (event) => {
+          fetch("completed").then(window.close);
+        });
+        setTimeout(window.print, 500);
+      }
+    }
+    function listenForUpdates() {
+      const ws = new WebSocket(`ws://localhost:${window.location.port}`);
+      ws.onopen = function () {
+        const sessionId = window.location.pathname.split("/")[1];
+        ws.send(JSON.stringify({ sessionId: sessionId }));
+      };
+      ws.onmessage = function (event) {
+        const message = JSON.parse(event.data);
+        if (message.type === 'refreshPreview') {
+          const scrollOffset = window.scrollY;
+          ws.send(JSON.stringify({ type: 'scrollOffset', value: scrollOffset }));
+          location.reload();
+        } else if (message.type === 'restoreScroll') {
+          const setScrollPosition = () => {
+            window.scrollTo(0, message.scrollOffset);
+          };
+          if (document.readyState === 'complete') {
+            setScrollPosition();
+          } else {
+            window.addEventListener('load', setScrollPosition);
+            const images = document.querySelectorAll('img');
+            let loadedImages = 0;
+            images.forEach(img => {
+              if (img.complete) {
+                loadedImages++;
+              } else {
+                img.addEventListener('load', () => {
+                  loadedImages++;
+                  if (loadedImages === images.length) {
+                    setScrollPosition();
+                  }
+                });
+              }
+            });
+          }
+        }
+      };
+
+      document.querySelectorAll('[data-source-map]')
+        .forEach(element => {
+          element.addEventListener('click', () => document.querySelector('.xref-highlight')?.classList.remove('xref-highlight'));
+          element.addEventListener('dblclick', () => {
+            const text = element.getAttribute('data-source-map');
+            ws.send(JSON.stringify({ type: 'findInEditor', value: text }));
+            element.classList.add('xref-highlight');
+          });
+        });
+    };
+  </script>
+</head>
+
+<body onload="listenForUpdates();printAndClose(false);">
+  <h3 class="filepath">marketing_document.md</h3>
+  <div>
+    <h1 data-source-map="IyBTUUwgQm9vdGNhbXA6IE1hc3RlciBEYXRhYmFzZXMgaW4gMyBEYXlzCg==">SQL Bootcamp: Master Databases in 3 Days</h1>
+<h2 data-source-map="IyMgUHJvZmVzc2lvbmFsIFNRTCBUcmFpbmluZyB3aXRoIFBvc3RncmVTUUwKCg==">Professional SQL Training with PostgreSQL</h2>
+<hr>
+<h2 data-source-map="IyMgQ291cnNlIE92ZXJ2aWV3Cgo=">Course Overview</h2>
+<p data-source-map="Sm9pbiBvdXIgaW50ZW5zaXZlICoqU1FMIEJvb3RjYW1wKiogYW5kIHRyYW5zZm9ybSB5b3VyIGNhcmVlciB3aXRoIGluLWRlbWFuZCBkYXRhYmFzZSBza2lsbHMuIFdoZXRoZXIgeW91J3JlIGxvb2tpbmcgdG8gYWR2YW5jZSBpbiB5b3VyIGN1cnJlbnQgcm9sZSwgdHJhbnNpdGlvbiBpbnRvIGRhdGEgYW5hbHlzaXMsIG9yIGJ1aWxkIGEgZm91bmRhdGlvbiBmb3Igc29mdHdhcmUgZGV2ZWxvcG1lbnQsIHRoaXMgY29tcHJlaGVuc2l2ZSAzLWRheSBwcm9ncmFtIHdpbGwgZXF1aXAgeW91IHdpdGggcHJhY3RpY2FsIFNRTCBleHBlcnRpc2UgdXNpbmcgaW5kdXN0cnktc3RhbmRhcmQgUG9zdGdyZVNRTC4=">Join our intensive <strong>SQL Bootcamp</strong> and transform your career with in-demand database skills. Whether you’re looking to advance in your current role, transition into data analysis, or build a foundation for software development, this comprehensive 3-day program will equip you with practical SQL expertise using industry-standard PostgreSQL.</p>
+<p data-source-map="VGhpcyBoYW5kcy1vbiBib290Y2FtcCB0YWtlcyB5b3UgZnJvbSBjb21wbGV0ZSBiZWdpbm5lciB0byBjb25maWRlbnQgZGF0YWJhc2UgdXNlci4gWW91J2xsIGxlYXJuIHJlbGF0aW9uYWwgZGF0YWJhc2UgZnVuZGFtZW50YWxzLCB3cml0ZSBwb3dlcmZ1bCBTUUwgcXVlcmllcywgYW5kIGJ1aWxkIGEgcmVhbC13b3JsZCBSRVNUIEFQSSB0aGF0IGNvbm5lY3RzIHRvIGEgbGl2ZSBkYXRhYmFzZeKAlGFsbCB3aXRoIGV4cGVydCBndWlkYW5jZSBhbmQgcHJhY3RpY2FsIGV4ZXJjaXNlcy4=">This hands-on bootcamp takes you from complete beginner to confident database user. You’ll learn relational database fundamentals, write powerful SQL queries, and build a real-world REST API that connects to a live database—all with expert guidance and practical exercises.</p>
+<hr>
+<h2 data-source-map="IyMgV2hhdCBZb3UnbGwgTGVhcm4KCg==">What You’ll Learn</h2>
+<h3 data-source-map="IyMjICoqRGF5IDE6IEZvdW5kYXRpb25zIG9mIFJlbGF0aW9uYWwgRGF0YWJhc2VzKioK"><strong>Day 1: Foundations of Relational Databases</strong></h3>
+<p data-source-map="QnVpbGQgeW91ciBkYXRhYmFzZSBmdW5kYW1lbnRhbHMgZnJvbSB0aGUgZ3JvdW5kIHVwOgo=">Build your database fundamentals from the ground up:</p>
+<ul>
+<li data-source-map="LSBVbmRlcnN0YW5kIHJlbGF0aW9uYWwgZGF0YWJhc2UgY29uY2VwdHMgYW5kIGFyY2hpdGVjdHVyZQo=">Understand relational database concepts and architecture</li>
+<li data-source-map="LSBNYXN0ZXIgdGFibGVzLCByZWNvcmRzLCBmaWVsZHMsIGFuZCByZWxhdGlvbnNoaXBzCg==">Master tables, records, fields, and relationships</li>
+<li data-source-map="LSBMZWFybiBwcmltYXJ5IGFuZCBmb3JlaWduIGtleXMK">Learn primary and foreign keys</li>
+<li data-source-map="LSBFeHBsb3JlIFNRTCBjb21tYW5kIGNhdGVnb3JpZXMgYW5kIHN5bnRheAo=">Explore SQL command categories and syntax</li>
+<li data-source-map="LSBJbnN0YWxsIGFuZCBjb25maWd1cmUgUG9zdGdyZVNRTAo=">Install and configure PostgreSQL</li>
+<li data-source-map="LSBDcmVhdGUgeW91ciBmaXJzdCBkYXRhYmFzZQ==">Create your first database</li>
+</ul>
+<h3 data-source-map="IyMjICoqRGF5IDI6IFNRTCBRdWVyaWVzIGFuZCBEYXRhYmFzZSBNYW5hZ2VtZW50KioK"><strong>Day 2: SQL Queries and Database Management</strong></h3>
+<p data-source-map="QmVjb21lIHByb2ZpY2llbnQgd2l0aCBTUUwgcXVlcmllcyBhbmQgZGF0YSBtYW5pcHVsYXRpb246Cg==">Become proficient with SQL queries and data manipulation:</p>
+<ul>
+<li data-source-map="LSBOYXZpZ2F0ZSBwZ0FkbWluIGludGVyZmFjZSBmb3IgZGF0YWJhc2UgYWRtaW5pc3RyYXRpb24K">Navigate pgAdmin interface for database administration</li>
+<li data-source-map="LSBXcml0ZSBlZmZlY3RpdmUgU0VMRUNUIHN0YXRlbWVudHMgYW5kIGZpbHRlcmluZyB3aXRoIFdIRVJFIGNsYXVzZXMK">Write effective SELECT statements and filtering with WHERE clauses</li>
+<li data-source-map="LSBTb3J0IGFuZCBsaW1pdCByZXN1bHRzIGZvciBlZmZpY2llbnQgZGF0YSByZXRyaWV2YWwK">Sort and limit results for efficient data retrieval</li>
+<li data-source-map="LSBJbnNlcnQsIHVwZGF0ZSwgYW5kIGRlbGV0ZSBkYXRhIHNhZmVseQo=">Insert, update, and delete data safely</li>
+<li data-source-map="LSBXb3JrIHdpdGggYWdncmVnYXRlIGZ1bmN0aW9ucyBhbmQgR1JPVVAgQlkgY2xhdXNlcwo=">Work with aggregate functions and GROUP BY clauses</li>
+<li data-source-map="LSBFeGVjdXRlIEpPSU5TIHRvIHF1ZXJ5IG11bHRpcGxlIHRhYmxlcwo=">Execute JOINS to query multiple tables</li>
+<li data-source-map="LSBNYW5hZ2UgdHJhbnNhY3Rpb25zIGZvciBkYXRhIGludGVncml0eQ==">Manage transactions for data integrity</li>
+</ul>
+<h3 data-source-map="IyMjICoqRGF5IDM6IEFkdmFuY2VkIFRvcGljcyBhbmQgUHJhY3RpY2FsIEFwcGxpY2F0aW9uKioK"><strong>Day 3: Advanced Topics and Practical Application</strong></h3>
+<p data-source-map="QWR2YW5jZSB5b3VyIHNraWxscyBhbmQgYnVpbGQgcmVhbC13b3JsZCBhcHBsaWNhdGlvbnM6Cg==">Advance your skills and build real-world applications:</p>
+<ul>
+<li data-source-map="LSBNYXN0ZXIgY29tcGxleCBKT0lOcyBhbmQgbXVsdGktdGFibGUgcXVlcmllcwo=">Master complex JOINs and multi-table queries</li>
+<li data-source-map="LSBXcml0ZSBzdWJxdWVyaWVzIGFuZCBDb21tb24gVGFibGUgRXhwcmVzc2lvbnMgKENURXMpCg==">Write subqueries and Common Table Expressions (CTEs)</li>
+<li data-source-map="LSBJbXBsZW1lbnQgZGF0YWJhc2Ugc2VjdXJpdHkgd2l0aCByb2xlcyBhbmQgcGVybWlzc2lvbnMK">Implement database security with roles and permissions</li>
+<li data-source-map="LSBCdWlsZCBhIGZ1bmN0aW9uYWwgUkVTVCBBUEkgY29ubmVjdGVkIHRvIFBvc3RncmVTUUwK">Build a functional REST API connected to PostgreSQL</li>
+<li data-source-map="LSBFeGVjdXRlIGZ1bGwgQ1JVRCBvcGVyYXRpb25zIHRocm91Z2ggYSB3ZWIgaW50ZXJmYWNlCg==">Execute full CRUD operations through a web interface</li>
+<li data-source-map="LSBEZXBsb3kgeW91ciBhcHBsaWNhdGlvbg==">Deploy your application</li>
+</ul>
+<hr>
+<h2 data-source-map="IyMgQ291cnNlIEhpZ2hsaWdodHMKCg==">Course Highlights</h2>
+<p data-source-map="4pyFICoqSGFuZHMtT24gTGVhcm5pbmcqKiAtIFJlYWwgZXhlcmNpc2VzIGFuZCBwcm9qZWN0cywgbm90IGp1c3QgbGVjdHVyZXMgIArinIUgKipDb21wbGV0ZSBGdW5kYW1lbnRhbHMqKiAtIFBlcmZlY3QgZm9yIGJlZ2lubmVyczsgbm8gcHJpb3IgZGF0YWJhc2UgZXhwZXJpZW5jZSByZXF1aXJlZCAgCuKchSAqKkluZHVzdHJ5IFRvb2xzKiogLSBMZWFybiBQb3N0Z3JlU1FMLCB0aGUgd29ybGQncyBtb3N0IGFkdmFuY2VkIG9wZW4tc291cmNlIGRhdGFiYXNlICAK4pyFICoqUmVhbC1Xb3JsZCBBcHBsaWNhdGlvbioqIC0gQnVpbGQgYW5kIGRlcGxveSBhbiBhY3R1YWwgUkVTVCBBUEkgcHJvamVjdCAgCuKchSAqKlR3byBMYW5ndWFnZSBPcHRpb25zKiogLSBDaG9vc2UgTm9kZS5qcy9KYXZhU2NyaXB0IG9yIFB5dGhvbiBmb3IgdGhlIGZpbmFsIHByb2plY3QgIArinIUgKipDYXJlZXIgUmVhZHkqKiAtIEdhaW4gc2tpbGxzIHNvdWdodCBieSBlbXBsb3llcnMgd29ybGR3aWRlICA=">✅ <strong>Hands-On Learning</strong> - Real exercises and projects, not just lectures<br>✅ <strong>Complete Fundamentals</strong> - Perfect for beginners; no prior database experience required<br>✅ <strong>Industry Tools</strong> - Learn PostgreSQL, the world’s most advanced open-source database<br>✅ <strong>Real-World Application</strong> - Build and deploy an actual REST API project<br>✅ <strong>Two Language Options</strong> - Choose Node.js/JavaScript or Python for the final project<br>✅ <strong>Career Ready</strong> - Gain skills sought by employers worldwide  </p>
+<hr>
+<h2 data-source-map="IyMgV2hvIFRoaXMgQ291cnNlIElzIEZvcgoK">Who This Course Is For</h2>
+<ul>
+<li data-source-map="LSAqKkNhcmVlciBDaGFuZ2VycyoqIC0gU3RhcnQgYSBuZXcgcGF0aCBpbiBkYXRhLCBkZXZlbG9wbWVudCwgb3IgYW5hbHl0aWNzCg=="><strong>Career Changers</strong> - Start a new path in data, development, or analytics</li>
+<li data-source-map="LSAqKkN1cnJlbnQgUHJvZmVzc2lvbmFscyoqIC0gRW5oYW5jZSB5b3VyIHNraWxsIHNldCBhbmQgbWFya2V0YWJpbGl0eQo="><strong>Current Professionals</strong> - Enhance your skill set and marketability</li>
+<li data-source-map="LSAqKkFzcGlyaW5nIERldmVsb3BlcnMqKiAtIEJ1aWxkIGVzc2VudGlhbCBkYXRhYmFzZSBza2lsbHMgZm9yIGZ1bGwtc3RhY2sgZGV2ZWxvcG1lbnQK"><strong>Aspiring Developers</strong> - Build essential database skills for full-stack development</li>
+<li data-source-map="LSAqKkRhdGEgRW50aHVzaWFzdHMqKiAtIExlYXJuIHRvIHdvcmsgd2l0aCByZWFsLXdvcmxkIGRhdGEgZWZmaWNpZW50bHkK"><strong>Data Enthusiasts</strong> - Learn to work with real-world data efficiently</li>
+<li data-source-map="LSAqKkVudHJlcHJlbmV1cnMgJiBGcmVlbGFuY2VycyoqIC0gTWFuYWdlIHlvdXIgb3duIGRhdGEgYW5kIGJ1aWxkIGRhdGFiYXNlLWRyaXZlbiBhcHBsaWNhdGlvbnM="><strong>Entrepreneurs &amp; Freelancers</strong> - Manage your own data and build database-driven applications</li>
+</ul>
+<p data-source-map="KipQcmVyZXF1aXNpdGVzKio6IEJhc2ljIGNvbXB1dGVyIHNraWxscyBhbmQgY29tZm9ydCB3aXRoIHVzaW5nIGEgbGFwdG9wLiBObyBwcm9ncmFtbWluZyBleHBlcmllbmNlIHJlcXVpcmVkIQ=="><strong>Prerequisites</strong>: Basic computer skills and comfort with using a laptop. No programming experience required!</p>
+<hr>
+<h2 data-source-map="IyMgQ291cnNlIERldGFpbHMKCg==">Course Details</h2>
+<table>
+<thead>
+<tr data-source-map="fCBBc3BlY3QgfCBEZXRhaWxzIHw=">
+<th>Aspect</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody><tr data-source-map="fCAqKkR1cmF0aW9uKiogfCAzIERheXMgKEZ1bGwtdGltZSBpbnRlbnNpdmUpIHw=">
+<td><strong>Duration</strong></td>
+<td>3 Days (Full-time intensive)</td>
+</tr>
+<tr data-source-map="fCAqKlNjaGVkdWxlKiogfCA5OjAwIEFNIC0gNDozMCBQTSAod2l0aCBicmVha3MpIHw=">
+<td><strong>Schedule</strong></td>
+<td>9:00 AM - 4:30 PM (with breaks)</td>
+</tr>
+<tr data-source-map="fCAqKkZvcm1hdCoqIHwgSW4tcGVyc29uLCBpbnN0cnVjdG9yLWxlZCB3aXRoIGhhbmRzLW9uIGxhYnMgfA==">
+<td><strong>Format</strong></td>
+<td>In-person, instructor-led with hands-on labs</td>
+</tr>
+<tr data-source-map="fCAqKk1heGltdW0gQ2xhc3MgU2l6ZSoqIHwgU21hbGwgZ3JvdXBzIGZvciBwZXJzb25hbGl6ZWQgYXR0ZW50aW9uIHw=">
+<td><strong>Maximum Class Size</strong></td>
+<td>Small groups for personalized attention</td>
+</tr>
+<tr data-source-map="fCAqKk1hdGVyaWFscyBQcm92aWRlZCoqIHwgQ29tcGxldGUgU1FMIHNjcmlwdHMsIGV4ZXJjaXNlcywgYW5kIHByb2plY3Qgc3RhcnRlciBjb2RlIHw=">
+<td><strong>Materials Provided</strong></td>
+<td>Complete SQL scripts, exercises, and project starter code</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 data-source-map="IyMgVGVjaG5pY2FsIFJlcXVpcmVtZW50cwoK">Technical Requirements</h2>
+<h3 data-source-map="IyMjIEJlZm9yZSBZb3UgU3RhcnQK">Before You Start</h3>
+<ul>
+<li data-source-map="LSBMYXB0b3Agd2l0aCBhZG1pbmlzdHJhdGl2ZSBhY2Nlc3MgKFdpbmRvd3MsIE1hYywgb3IgTGludXgpCg==">Laptop with administrative access (Windows, Mac, or Linux)</li>
+<li data-source-map="LSBNaW5pbXVtIDhHQiBSQU0gcmVjb21tZW5kZWQK">Minimum 8GB RAM recommended</li>
+<li data-source-map="LSAxMEdCIGZyZWUgZGlzayBzcGFjZQo=">10GB free disk space</li>
+<li data-source-map="LSBJbnRlcm5ldCBjb25uZWN0aW9u">Internet connection</li>
+</ul>
+<h3 data-source-map="IyMjIFNvZnR3YXJlIChXZSdsbCBIZWxwIFlvdSBJbnN0YWxsKQo=">Software (We’ll Help You Install)</h3>
+<ul>
+<li data-source-map="LSBQb3N0Z3JlU1FMIDEyKwo=">PostgreSQL 12+</li>
+<li data-source-map="LSBwZ0FkbWluCg==">pgAdmin</li>
+<li data-source-map="LSBDb2RlIGVkaXRvciAoVlMgQ29kZSByZWNvbW1lbmRlZCkK">Code editor (VS Code recommended)</li>
+<li data-source-map="LSBOb2RlLmpzICpvciogUHl0aG9uIChmb3IgRGF5IDMgcHJvamVjdCwgeW91ciBjaG9pY2Up">Node.js <em>or</em> Python (for Day 3 project, your choice)</li>
+</ul>
+<hr>
+<h2 data-source-map="IyMgV2hhdCBZb3UnbGwgVGFrZSBBd2F5Cgo=">What You’ll Take Away</h2>
+<p data-source-map="KipUZWNobmljYWwgU2tpbGxzOioqCg=="><strong>Technical Skills:</strong></p>
+<ul>
+<li data-source-map="LSBEYXRhYmFzZSBkZXNpZ24gcHJpbmNpcGxlcyBhbmQgYmVzdCBwcmFjdGljZXMK">Database design principles and best practices</li>
+<li data-source-map="LSBQcm9mZXNzaW9uYWwtZ3JhZGUgU1FMIHF1ZXJ5IHdyaXRpbmcK">Professional-grade SQL query writing</li>
+<li data-source-map="LSBEYXRhIHNlY3VyaXR5IGFuZCByb2xlIG1hbmFnZW1lbnQK">Data security and role management</li>
+<li data-source-map="LSBSRVNUZnVsIEFQSSBkZXZlbG9wbWVudCB3aXRoIGRhdGFiYXNlIGludGVncmF0aW9u">RESTful API development with database integration</li>
+</ul>
+<p data-source-map="KipSZWFsIERlbGl2ZXJhYmxlczoqKgo="><strong>Real Deliverables:</strong></p>
+<ul>
+<li data-source-map="LSBBIGZ1bmN0aW9uYWwgUkVTVCBBUEkgcHJvamVjdCBjb25uZWN0ZWQgdG8gUG9zdGdyZVNRTAo=">A functional REST API project connected to PostgreSQL</li>
+<li data-source-map="LSBSZXVzYWJsZSBTUUwgc2NyaXB0cyBhbmQgdGVtcGxhdGVzCg==">Reusable SQL scripts and templates</li>
+<li data-source-map="LSBDb21wbGV0ZSBjb3Vyc2UgbWF0ZXJpYWxzIGZvciBmdXR1cmUgcmVmZXJlbmNlCg==">Complete course materials for future reference</li>
+<li data-source-map="LSBQcm9mZXNzaW9uYWwgcG9ydGZvbGlvIHBpZWNlIHRvIHNob3djYXNl">Professional portfolio piece to showcase</li>
+</ul>
+<p data-source-map="KipDYXJlZXIgQmVuZWZpdHM6KioK"><strong>Career Benefits:</strong></p>
+<ul>
+<li data-source-map="LSBKb2ItcmVhZHkgZGF0YWJhc2Ugc2tpbGxzCg==">Job-ready database skills</li>
+<li data-source-map="LSBDZXJ0aWZpY2F0ZSBvZiBjb21wbGV0aW9uCg==">Certificate of completion</li>
+<li data-source-map="LSBDb25maWRlbmNlIHRvIHRhY2tsZSByZWFsLXdvcmxkIGRhdGFiYXNlIGNoYWxsZW5nZXMK">Confidence to tackle real-world database challenges</li>
+<li data-source-map="LSBOZXR3b3JraW5nIHdpdGggZmVsbG93IHN0dWRlbnRz">Networking with fellow students</li>
+</ul>
+<hr>
+<h2 data-source-map="IyMgSW5zdHJ1Y3RvciBFeHBlcnRpc2UKCg==">Instructor Expertise</h2>
+<p data-source-map="T3VyIGluc3RydWN0b3JzIGJyaW5nIHllYXJzIG9mIHByb2Zlc3Npb25hbCBleHBlcmllbmNlIGluIGRhdGFiYXNlIGFkbWluaXN0cmF0aW9uLCBzb2Z0d2FyZSBkZXZlbG9wbWVudCwgYW5kIGRhdGEgbWFuYWdlbWVudC4gVGhleSdyZSBwYXNzaW9uYXRlIGFib3V0IG1ha2luZyBjb21wbGV4IGNvbmNlcHRzIGFjY2Vzc2libGUgYW5kIHdpbGwgZ3VpZGUgeW91IHRocm91Z2ggZXZlcnkgc3RlcCBvZiB0aGUgam91cm5leS4=">Our instructors bring years of professional experience in database administration, software development, and data management. They’re passionate about making complex concepts accessible and will guide you through every step of the journey.</p>
+<hr>
+<h2 data-source-map="IyMgRW5yb2xsbWVudCBJbmZvcm1hdGlvbgoK">Enrollment Information</h2>
+<h3 data-source-map="IyMjIEludmVzdG1lbnQK">Investment</h3>
+<p data-source-map="WypQcmljZSB0byBiZSBkZXRlcm1pbmVkKl0=">[<em>Price to be determined</em>]</p>
+<h3 data-source-map="IyMjIFdoYXQncyBJbmNsdWRlZAo=">What’s Included</h3>
+<ul>
+<li data-source-map="LSAzIGRheXMgb2YgZXhwZXJ0IGluc3RydWN0aW9uCg==">3 days of expert instruction</li>
+<li data-source-map="LSBBbGwgY291cnNlIG1hdGVyaWFscyBhbmQgY29kZSBzYW1wbGVzCg==">All course materials and code samples</li>
+<li data-source-map="LSBIYW5kcy1vbiBsYWJzIGFuZCBleGVyY2lzZXMK">Hands-on labs and exercises</li>
+<li data-source-map="LSBGaW5hbCBwcm9qZWN0IGd1aWRhbmNlCg==">Final project guidance</li>
+<li data-source-map="LSBDb3Vyc2UgY29tcGxldGlvbiBjZXJ0aWZpY2F0ZQo=">Course completion certificate</li>
+<li data-source-map="LSBBY2Nlc3MgdG8gbGVhcm5pbmcgbWF0ZXJpYWxzIGZvciAzMCBkYXlzIGFmdGVyIHRoZSBjb3Vyc2U=">Access to learning materials for 30 days after the course</li>
+</ul>
+<h3 data-source-map="IyMjIExpbWl0ZWQgU3BvdHMgQXZhaWxhYmxlCg==">Limited Spots Available</h3>
+<p data-source-map="RHVlIHRvIG91ciBzbWFsbCBjbGFzcyBzaXplcyBhbmQgaGFuZHMtb24gYXBwcm9hY2gsIGVucm9sbG1lbnQgaXMgbGltaXRlZC4gRWFybHkgcmVnaXN0cmF0aW9uIGlzIHJlY29tbWVuZGVkLg==">Due to our small class sizes and hands-on approach, enrollment is limited. Early registration is recommended.</p>
+<hr>
+<h2 data-source-map="IyMgUmVhZHkgdG8gTWFzdGVyIFNRTD8KCg==">Ready to Master SQL?</h2>
+<p data-source-map="VHJhbnNmb3JtIHlvdXIgY2FyZWVyIGluIGp1c3QgMyBkYXlzLiBGcm9tIGRhdGFiYXNlIGZ1bmRhbWVudGFscyB0byBidWlsZGluZyBhIHJlYWwgUkVTVCBBUEksIHRoaXMgYm9vdGNhbXAgd2lsbCBnaXZlIHlvdSB0aGUgc2tpbGxzIGFuZCBjb25maWRlbmNlIHRvIHdvcmsgd2l0aCBkYXRhYmFzZXMgcHJvZmVzc2lvbmFsbHku">Transform your career in just 3 days. From database fundamentals to building a real REST API, this bootcamp will give you the skills and confidence to work with databases professionally.</p>
+<p data-source-map="KipbUmVnaXN0ZXIgTm93XSoqIHwgKipbVmlldyBTY2hlZHVsZV0qKiB8ICoqW0Rvd25sb2FkIFN5bGxhYnVzXSoq"><strong>[Register Now]</strong> | <strong>[View Schedule]</strong> | <strong>[Download Syllabus]</strong></p>
+<hr>
+<h2 data-source-map="IyMgRnJlcXVlbnRseSBBc2tlZCBRdWVzdGlvbnMKCg==">Frequently Asked Questions</h2>
+<p data-source-map="KipROiBEbyBJIG5lZWQgYW55IHByb2dyYW1taW5nIGV4cGVyaWVuY2U/KiogIApBOiBObyEgVGhpcyBjb3Vyc2UgaXMgZGVzaWduZWQgZm9yIGNvbXBsZXRlIGJlZ2lubmVycy4gV2UnbGwgdGVhY2ggeW91IGV2ZXJ5dGhpbmcgeW91IG5lZWQgdG8ga25vdy4="><strong>Q: Do I need any programming experience?</strong><br>A: No! This course is designed for complete beginners. We’ll teach you everything you need to know.</p>
+<p data-source-map="KipROiBXaWxsIEkgYmUgYWJsZSB0byBrZWVwIHRoZSBjb3Vyc2UgbWF0ZXJpYWxzPyoqICAKQTogWWVzISBZb3UnbGwgaGF2ZSBhY2Nlc3MgdG8gYWxsIHNjcmlwdHMsIGV4ZXJjaXNlcywgYW5kIGNvZGUgc2FtcGxlcyBmb3IgMzAgZGF5cyBhZnRlciB0aGUgY291cnNlIChsb25nZXIgd2l0aCB1cGdyYWRlKS4="><strong>Q: Will I be able to keep the course materials?</strong><br>A: Yes! You’ll have access to all scripts, exercises, and code samples for 30 days after the course (longer with upgrade).</p>
+<p data-source-map="KipROiBDYW4gSSBjaG9vc2UgYmV0d2VlbiBKYXZhU2NyaXB0IGFuZCBQeXRob24gZm9yIHRoZSBmaW5hbCBwcm9qZWN0PyoqICAKQTogQWJzb2x1dGVseSEgT24gRGF5IDMsIHlvdSBjYW4gY2hvb3NlIHRoZSBOb2RlLmpzL0V4cHJlc3Mgb3IgUHl0aG9uL0ZsYXNrIHZlcnNpb24gb2YgdGhlIFJFU1QgQVBJIHByb2plY3Qu"><strong>Q: Can I choose between JavaScript and Python for the final project?</strong><br>A: Absolutely! On Day 3, you can choose the Node.js/Express or Python/Flask version of the REST API project.</p>
+<p data-source-map="KipROiBXaGF0IGlmIEkgY2FuJ3QgbWFrZSBhbGwgMyBkYXlzPyoqICAKQTogV2UgcmVjb21tZW5kIGF0dGVuZGluZyBhbGwgMyBkYXlzIGZvciB0aGUgZnVsbCBsZWFybmluZyBleHBlcmllbmNlLCBidXQgY29udGFjdCB1cyBpZiB5b3UgaGF2ZSBzY2hlZHVsaW5nIGNvbnN0cmFpbnRzLg=="><strong>Q: What if I can’t make all 3 days?</strong><br>A: We recommend attending all 3 days for the full learning experience, but contact us if you have scheduling constraints.</p>
+<p data-source-map="KipROiBJcyB0aGlzIGNvdXJzZSBvbmxpbmUgb3IgaW4tcGVyc29uPyoqICAKQTogT3VyIGJvb3RjYW1wIGlzIG9mZmVyZWQgaW4tcGVyc29uIHRvIG1heGltaXplIGhhbmRzLW9uIGxlYXJuaW5nIGFuZCBpbnN0cnVjdG9yIHN1cHBvcnQu"><strong>Q: Is this course online or in-person?</strong><br>A: Our bootcamp is offered in-person to maximize hands-on learning and instructor support.</p>
+<hr>
+<p data-source-map="KipRdWVzdGlvbnM/KiogQ29udGFjdCB1cyBhdCBbY29udGFjdCBlbWFpbF0gb3IgY2FsbCBbcGhvbmUgbnVtYmVyXQ=="><strong>Questions?</strong> Contact us at [contact email] or call [phone number]</p>
+<p data-source-map="KlNRTCBCb290Y2FtcCAtIE1hc3RlciBEYXRhYmFzZXMgaW4gMyBEYXlzKg=="><em>SQL Bootcamp - Master Databases in 3 Days</em></p>
+<script src="./marketing_document.md_files/smartquotes.js"></script><script>smartquotes();</script>
+  </div>
+
+
+</body></html>
